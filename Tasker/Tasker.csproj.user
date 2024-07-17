@@ -11,6 +11,9 @@
     <MauiXaml Update="MVVM\Views\MainView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="MVVM\Views\NewTaskView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
   </ItemGroup>
   <ItemGroup>
     <None Update="App.xaml">
