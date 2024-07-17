@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,6 +9,7 @@ using Tasker.MVVM.Models;
 
 namespace Tasker.MVVM.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
    public class MainViewModel
     {
         public ObservableCollection<Category> Categories { get; set; }
@@ -25,20 +27,20 @@ namespace Tasker.MVVM.ViewModels
                 new Category
                 {
                     Id = 1,
-                    CategoryName = "Test1",
-                    Color = "#0c2b5c"
+                    CategoryName = "Shopping",
+                    Color = "#0959db"
                 },
                 new Category
                 {
                     Id = 2,
-                    CategoryName = "Test2",
-                    Color = "#380624"
+                    CategoryName = "Cleaning",
+                    Color = "#bcdb09"
                 },
                 new Category
                 {
                     Id = 3,
-                    CategoryName = "Test3",
-                    Color = "#05520e"
+                    CategoryName = "Studying",
+                    Color = "#09db68"
                 }
             };
 
@@ -46,56 +48,56 @@ namespace Tasker.MVVM.ViewModels
             {
                 new MyTask
                 {
-                    TaskName = "Test1",
+                    TaskName = "Buy books",
                     Completed = false,
                     CategoryId= 1
                  
                 },
                 new MyTask
                 {
-                    TaskName = "Test2",
+                    TaskName = "Buy clothes",
                     Completed = false,
                     CategoryId= 1
                     
                 },
                 new MyTask
                 {
-                    TaskName = "Test3",
+                    TaskName = "Buy groceries",
                     Completed = true,
                     CategoryId= 1
                     
                 },
                 new MyTask
                 {
-                    TaskName = "Test4",
+                    TaskName = "Clean room",
                     Completed = false,
                     CategoryId= 2
                     
                 },
                 new MyTask
                 {
-                    TaskName = "Test5",
+                    TaskName = "mow the lawn",
                     Completed = true,
                     CategoryId= 2
                   
                 },
                 new MyTask
                 {
-                    TaskName = "Test6",
+                    TaskName = "Study .net maui",
                     Completed = false,
                     CategoryId= 3
                    
                 },
                 new MyTask
                 {
-                    TaskName = "Test7",
+                    TaskName = "Study C#",
                     Completed = true,
                     CategoryId= 3
                     
                 }
             };
 
-            UpdateData();
+            
 
         }
 
