@@ -19,6 +19,11 @@ public partial class MainView : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
+        foreach (var category in mainViewModel.Categories)
+        {
+            category.IsSelected = false;
+        }
+
         var taskView = new NewTaskView
         {
             BindingContext = new NewTaskViewModel

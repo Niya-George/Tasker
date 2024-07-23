@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,18 @@ namespace Tasker.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
    public class MainViewModel
     {
-        public ObservableCollection<Category> Categories { get; set; }
-         
+        public ObservableCollection<Category> Categories { get; set; }         
         public ObservableCollection<MyTask>Tasks { get; set; }
+
         public MainViewModel()
         {
             FillData();
+            Tasks.CollectionChanged += Tasks_CollectionChanged;
+        }
+
+        private void Tasks_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateData();
         }
 
         private void FillData()
@@ -29,18 +36,21 @@ namespace Tasker.MVVM.ViewModels
                     Id = 1,
                     CategoryName = "Shopping",
                     Color = "#0959db"
+                    
                 },
                 new Category
                 {
                     Id = 2,
                     CategoryName = "Cleaning",
                     Color = "#bcdb09"
+                  
                 },
                 new Category
                 {
                     Id = 3,
                     CategoryName = "Studying",
                     Color = "#09db68"
+                    
                 }
             };
 
@@ -96,9 +106,7 @@ namespace Tasker.MVVM.ViewModels
                     
                 }
             };
-
-            
-
+           
         }
 
         public void UpdateData()
@@ -129,7 +137,5 @@ namespace Tasker.MVVM.ViewModels
                 t.TaskColor = catColor;   
             }
         }
-    }
-
-    
+    }    
 }

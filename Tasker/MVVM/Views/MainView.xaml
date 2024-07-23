@@ -4,28 +4,26 @@
              x:Class="Tasker.MVVM.Views.MainView"
              xmlns:converters="clr-namespace:Tasker.Converter"
              Title="Tasker">
+    
     <ContentPage.Resources>
         <converters:ColorConverter x:Key="ColorConverter" />
+      
+
     </ContentPage.Resources>
     <Grid RowDefinitions=".1*,.3*,.6*" Margin="20" >
         <Label Grid.Row="0" Text="My Tasks" FontAttributes="Bold" FontSize="Medium" />
         
                     <Grid Grid.Row="1" RowDefinitions=".2*,.8*" >
-                        
-                            <Label Grid.Row="0" Text="CATEGORIES" HorizontalTextAlignment="Start"  />
-                        
-                        
-                        
-                            <CollectionView Grid.Row="1" ItemsSource="{Binding Categories}" >
+
+            <Label Grid.Row="0" Text="CATEGORIES" HorizontalTextAlignment="Start"  />
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Categories}" >
                                 <CollectionView.ItemsLayout >
                                     <LinearItemsLayout ItemSpacing="30" Orientation="Horizontal"  />
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate >
-                                    <DataTemplate>
-
-                                        <Frame CornerRadius="30" BorderColor="Black" HeightRequest="120" >
-
-                                            <StackLayout Spacing="10">
+                    <DataTemplate>
+                        <Frame CornerRadius="30" BorderColor="Black" HeightRequest="120" >
+                            <StackLayout Spacing="10">
                                                 <Label Text="{Binding PendingTasks, StringFormat='{0} Tasks'} "/>
                                                 <Label Text="{Binding CategoryName}" />
                                                 <ProgressBar Progress=".5" ProgressColor="{Binding Color,Converter = {StaticResource ColorConverter}}"/>
@@ -40,7 +38,7 @@
                     </Grid>
         <Grid Grid.Row="2" RowDefinitions=".1*,.9*" Margin="20">
             <Label Text="PENDING TASKS"/>
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Tasks}">
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Tasks}" ItemsUpdatingScrollMode="KeepLastItemInView" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>

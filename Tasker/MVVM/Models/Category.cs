@@ -19,5 +19,8 @@ namespace Tasker.MVVM.Models
 
         public int PendingTasks { get; set; }
 
+        public bool IsSelected { get; set; }
+
+        
     }
 }
