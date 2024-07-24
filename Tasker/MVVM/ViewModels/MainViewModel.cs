@@ -86,7 +86,7 @@ namespace Tasker.MVVM.ViewModels
                 },
                 new MyTask
                 {
-                    TaskName = "mow the lawn",
+                    TaskName = "Mow the lawn",
                     Completed = true,
                     CategoryId= 2
                   
