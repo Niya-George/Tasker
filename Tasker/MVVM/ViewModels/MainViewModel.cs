@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Tasker.MVVM.Models;
 
 namespace Tasker.MVVM.ViewModels
@@ -13,15 +14,39 @@ namespace Tasker.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
    public class MainViewModel
     {
-        public ObservableCollection<Category> Categories { get; set; }         
-        public ObservableCollection<MyTask>Tasks { get; set; }
-
+        public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<MyTask> Tasks { get; set; }
+        public ICommand DeleteTaskCommand { get; set; }
+        public ICommand DeleteCategoryCommand { get; set; }
         public MainViewModel()
         {
             FillData();
             Tasks.CollectionChanged += Tasks_CollectionChanged;
+            DeleteTaskCommand = new Command<MyTask>(OnDeleteTask);
+            DeleteCategoryCommand = new Command<Category>(OnDeleteCategory);
+        }
+        private void OnDeleteTask(MyTask task)
+        {
+            if (Tasks.Contains(task))
+            {
+                Tasks.Remove(task);
+                UpdateData();
+            }
         }
 
+        private void OnDeleteCategory(Category category)
+        {
+            if (Categories.Contains(category))
+            {
+                var tasksToRemove = Tasks.Where(t => t.CategoryId == category.Id).ToList();
+                foreach (var task in tasksToRemove)
+                {
+                    Tasks.Remove(task);
+                }
+                Categories.Remove(category);
+                UpdateData();
+            }
+        }
         private void Tasks_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             UpdateData();
@@ -111,7 +136,7 @@ namespace Tasker.MVVM.ViewModels
 
         public void UpdateData()
         {
-            foreach(var c in Categories)
+            foreach (var c in Categories)
             {
                 var tasks = from t in Tasks
                             where t.CategoryId == c.Id
@@ -124,8 +149,8 @@ namespace Tasker.MVVM.ViewModels
                                    where t.Completed == false
                                    select t;
 
-                c.PendingTasks= notCompleted.Count();
-                c.Percentage=(float)completed.Count()/(float)tasks.Count();
+                c.PendingTasks = notCompleted.Count();
+                c.Percentage = (float)completed.Count() / (float)tasks.Count();
             }
 
             foreach (var t in Tasks)
@@ -134,7 +159,7 @@ namespace Tasker.MVVM.ViewModels
                     (from c in Categories
                      where c.Id == t.CategoryId
                      select c.Color).FirstOrDefault();
-                t.TaskColor = catColor;   
+                t.TaskColor = catColor;
             }
         }
     }    

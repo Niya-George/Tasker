@@ -6,16 +6,16 @@ namespace Tasker.MVVM.Views;
 
 public partial class NewTaskView : ContentPage
 {
-	public NewTaskView()
-	{
-		InitializeComponent();
-	} 
+    public NewTaskView()
+    {
+        InitializeComponent();
+    }
 
     private async void AddTaskClicked(object sender, EventArgs e)
     {
         var vm = BindingContext as NewTaskViewModel;
-        var selectedCategory = 
-            vm.Categories.Where(x=>x.IsSelected == true).FirstOrDefault();
+        var selectedCategory =
+            vm.Categories.Where(x => x.IsSelected == true).FirstOrDefault();
 
         if (selectedCategory != null)
         {
@@ -25,7 +25,7 @@ public partial class NewTaskView : ContentPage
                 CategoryId = selectedCategory.Id
 
             };
-            vm.Tasks.Add(task);                       
+            vm.Tasks.Add(task);
             await Navigation.PopAsync();
 
         }
@@ -45,7 +45,7 @@ public partial class NewTaskView : ContentPage
             keyboard: Keyboard.Text);
 
         var r = new Random();
-        if(!string.IsNullOrEmpty(category))
+        if (!string.IsNullOrEmpty(category))
         {
             vm.Categories.Add(new Category
             {
